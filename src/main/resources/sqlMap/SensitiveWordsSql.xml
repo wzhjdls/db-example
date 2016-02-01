@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.cmcc.omp.omee.acs.northaccess.dao.ISensitiveWordsDao">
+	<select id="getAllSensitiveWordlist" resultType="java.lang.String">
+		select sensitiveword from sensitivewordslist 
+	</select>
+	<insert id="mysqlInsertAllSensitiveWordlist" parameterType="java.util.List">
+        insert into sensitivewordslist(sensitiveword) values
+    	<foreach collection="list" item="item" separator=",">  
+        (#{item.sensitiveWord})
+    	</foreach> 
+    </insert>
+    <insert id="insertOneSensitiveWord"  parameterType="SensitiveWord">
+        insert into sensitivewordslist(sensitiveword) values(#{sensitiveWord})  
+    </insert>
+    <update id="updateOneSensitiveWord" parameterType="java.util.Map">
+    	update sensitivewordslist set sensitiveword= #{newWord} where sensitiveword = #{oldWord}
+    </update>
+	<delete id="deleteOneSensitiveWord" parameterType="SensitiveWord">
+		delete from sensitivewordslist where sensitiveword=#{sensitiveWord}
+	</delete>
+	<delete id="deleteAllSensitiveWords">
+		truncate table sensitivewordslist
+	</delete>
+
+</mapper>

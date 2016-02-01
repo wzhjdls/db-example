@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+        namespace="com.cmcc.omp.omee.acs.northaccess.dao.ISmsSendDao">
+
+    <resultMap id="pushUpMessage" type="com.cmcc.omp.omee.acs.northaccess.bean.PushUpMessage">
+        <id column="SUBMITTIME" property="submitTime"/>
+        <id column="CONTENT" property="content"/>
+        <result column="destTerminalId" property="DESTTERMINALID"/>
+        <result column="destId" property="DESTID"/>
+        <result column="valid" property="VALID"/>
+    </resultMap>
+
+    <insert id="insertSmsSend" parameterType="com.cmcc.omp.omee.acs.northaccess.bean.requestMessage.MessageReq">
+              INSERT INTO requestmessage (
+              messageId,
+              sourceAddr,
+              destAddr,
+              message,
+              needReceipt,
+              apiKey,
+              receiptNotificationURL,
+              requestIp,
+              status,
+              messageType,
+              callBackData
+              )
+              VALUES
+              (#{messageId},#{sourceAddr},#{destAddr},#{message},#{needReceipt},#{apiKey},#{receiptNotificationURL},#{requestIp},#{status},#{messageType},#{callBackData})
+       </insert>
+
+    <update id="updateSmsSend" parameterType="com.cmcc.omp.omee.acs.northaccess.bean.requestMessage.MessageReq">
+        update requestmessage
+        <set>
+            status = #{status}
+        </set>
+        where messageId = #{messageId}
+    </update>
+
+    <select id="selectDeviceId" parameterType="String" resultType="String">
+    select deviceid from gw_san where san = #{san}
+    </select>
+
+    <select id="selectGatewayInfo" parameterType="String" resultType="java.util.Map">
+        select rabbitmqname,serviceid,spid from device where deviceid = #{deviceId}
+    </select>
+
+    <insert id="insertMessageId" parameterType="String">
+        INSERT INTO gatewaymessage (
+        messageId
+        )
+        VALUES
+        (#{messageId})
+    </insert>
+
+    <select id="selectGatewayRespose" parameterType="String" resultType="java.util.Map">
+            select reportstatus,responsestatus from gatewaymessage where messageid = #{messageid}
+    </select>
+
+    <select id="selectDestAdress" parameterType="String" resultType="String">
+        select destaddr from requestmessage where  messageid = #{messageid}
+    </select>
+
+    <select id="selectReceiptUrl" parameterType="String" resultType="String">
+        select receiptnotificationurl from requestmessage where  messageid = #{messageid}
+    </select>
+
+    <update id="updateGatewayReportstatus" parameterType="java.util.Map">
+        update gatewaymessage
+        <set>
+            reportstatus = #{reportStatus}
+        </set>
+        where messageId = #{messageId}
+    </update>
+
+    <update id="updateGatewayResponsestatus" parameterType="java.util.Map">
+        update gatewaymessage
+        <set>
+            responsestatus = #{responseStatus}
+        </set>
+        where messageId = #{messageId}
+    </update>
+
+    <insert id="insertPushUpMessage" parameterType="com.cmcc.omp.omee.acs.northaccess.bean.PushUpMessage">
+        insert into pushupmessage(
+        messageId,
+        submittime,
+        content,
+        destterminalid,
+        destid,
+        valid
+        )
+        VALUES(#{messageId},#{submitTime},#{content},#{destTerminalId},#{destId},#{valid})
+    </insert>
+
+    <select id="selectPushUpMessage" parameterType="String" resultMap="pushUpMessage">
+        SELECT * FROM pushupmessage WHERE destid = #{destid} AND valid = '0'
+    </select>
+
+    <update id="updatePushUpMessageValid" parameterType="String">
+        update pushupmessage set valid = 1  where destid = #{destid}
+    </update>
+</mapper>

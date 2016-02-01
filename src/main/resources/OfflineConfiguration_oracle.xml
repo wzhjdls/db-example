@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <!--<typeAlias alias="GlobalBlack" type="com.cmcc.omp.omee.acs.northaccess.bean.init.GlobalBlack"/>-->
+        <!--<typeAlias alias="LocalWhite" type="com.cmcc.omp.omee.acs.northaccess.bean.init.LocalWhite"/>-->
+        <!--<typeAlias alias="LocalBlack" type="com.cmcc.omp.omee.acs.northaccess.bean.init.LocalBlack"/>-->
+        <!--<typeAlias alias="SensitiveWord" type="com.cmcc.omp.omee.acs.northaccess.bean.init.SensitiveWord"/>-->
+        <!--<typeAlias alias="Msghistory" type="com.cmcc.omp.omee.acs.northaccess.bean.init.Msghistory"/>-->
+        <!--<typeAlias alias="OmpAppinfo" type="com.cmcc.omp.omee.acs.northaccess.bean.init.OmpAppinfo"/>-->
+        <!--<typeAlias alias="OmpEnablerinfo" type="com.cmcc.omp.omee.acs.northaccess.bean.init.OmpEnablerinfo"/>-->
+    </typeAliases>
+    <mappers>
+        <!--<mapper resource="sqlMap/MsghistorySql.xml"/>-->
+        <!--<mapper resource="sqlMap/OmpAppinfoSql.xml"/>-->
+        <!--<mapper resource="sqlMap/OmpEnablerinfoSql.xml"/>-->
+        <!--<mapper resource="sqlMap/GlobalBlacklistSql.xml"/>-->
+        <!--<mapper resource="sqlMap/LocalWhitelistSql.xml"/>-->
+        <!--<mapper resource="sqlMap/LocalBlacklistSql.xml"/>-->
+        <!--<mapper resource="sqlMap/SensitiveWordsSql.xml"/>-->
+        <!--<mapper resource="sqlMap/SmsRequestSql.xml"/>-->
+    </mappers>
+</configuration>
